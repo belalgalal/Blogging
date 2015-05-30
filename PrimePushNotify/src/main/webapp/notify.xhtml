@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Test</title>
+</h:head>
+<h:body>
+
+	<p:growl widgetVar="growl" showDetail="true" />
+
+	<h:form>
+		<h:panelGrid columns="2">
+			<p:outputLabel for="summary" value="Summary: " />
+			<p:inputText id="summary" value="#{notifyView.summary}"
+				required="true" />
+
+			<p:outputLabel for="detail" value="Detail: " />
+			<p:inputText id="detail" value="#{notifyView.detail}" required="true" />
+		</h:panelGrid>
+
+		<p:commandButton value="Send" actionListener="#{notifyView.send}" />
+	</h:form>
+
+	<p:socket onMessage="handleMessage" channel="/notify" />
+
+	<script type="text/javascript">
+        function handleMessage(facesmessage) {
+            facesmessage.severity = 'info';
+ 
+            PF('growl').show([facesmessage]);
+        }
+	</script>
+</h:body>
+</html>
