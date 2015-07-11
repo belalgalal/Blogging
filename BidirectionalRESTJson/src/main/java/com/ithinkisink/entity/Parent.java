@@ -50,7 +50,7 @@ public class Parent implements Serializable {
 
 
 	//bi-directional many-to-one association to Child
-	@OneToMany(mappedBy="parent")
+	@OneToMany(mappedBy="parent", fetch=FetchType.LAZY)
 	public List<Child> getChilds() {
 		return this.childs;
 	}
